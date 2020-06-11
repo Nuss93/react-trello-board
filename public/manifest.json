@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Trello || React DnD",
+  "name": "Trello with React DnD",
   "icons": [
     {
       "src": "favicon.ico",
