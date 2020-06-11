@@ -1,5 +1,6 @@
 {
   "name": "draganddrop",
+  "homepage": "https://react-trello-board-1.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
