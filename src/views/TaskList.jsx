@@ -81,6 +81,7 @@ export default class TaskList extends Component {
     render() {
         return (
             <div style={{display:'flex'}}>
+                <h1>TEST</h1>
                 <DragDropContext
                     // 3 callbacks
                     // onDragStart
