@@ -21,6 +21,7 @@ const TaskList = styled.div`
     padding: 10px;
     flex-grow: 1;
     min-height: 100px;
+    border-radius: 0 0 0.5rem 0.5rem;
 `;
 
 export default class Column extends Component {
@@ -42,16 +43,19 @@ export default class Column extends Component {
                     - placeholder : react element used to increase available space in droppable when needed. needs to be added as a child of the component of droppable
                     */}
                 <Droppable droppableId={this.props.column.id}>
-                    {(provided, snapshot) => {
-                        // console.log('snapshot', snapshot)
-                        return <TaskList
+                    {(provided, snapshot) => (
+                        <TaskList
                             ref={provided.innerRef}
                             {...provided.droppableProps}
+                            style={{
+                                background: snapshot.isDraggingOver ? 'lightblue' : 'white',
+                                ...provided.droppableProps.style
+                            }}
                         >
                             {this.props.tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
                             {provided.placeholder}
                         </TaskList>
-                    }}
+                    )}
                 </Droppable>
             </Container>
         )
