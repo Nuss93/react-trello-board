@@ -2,9 +2,82 @@ import React, { Component } from "react";
 import initialData from "../initial-data.js";
 import Column from "./Column.jsx";
 import { DragDropContext } from "react-beautiful-dnd";
+import firebase from 'firebase';
 
 export default class TaskList extends Component {
-  state = initialData;
+  state = {
+    tasks: {},
+    columns: {
+      'to do': {
+        id: 'to do',
+        title: 'To Do',
+        name: 'to do',
+        taskIds: [],
+      },
+      'in progress': {
+        id: 'in progress',
+        title: 'In Progress',
+        name: 'in progress',
+        taskIds: [],
+      },
+      'completed': {
+        id: 'completed',
+        title: 'Completed',
+        name: 'completed',
+        taskIds: [],
+      }
+    },
+    columnOrder: ['to do', 'in progress', 'completed'],
+    // data: {}
+  };
+  componentDidMount() {
+    this.fetchList()
+  }
+  fetchList = () => {
+    let TASKS = {}
+    firebase.database().ref('trello_cards').once('value').then((snapshot) => {
+      if(snapshot.exists()){
+        TASKS = snapshot.val()
+      }
+    }).then(() => {
+      firebase.database().ref('trello_list').once('value').then((snapshot) => {
+        if(snapshot.exists()){
+          let SNAPSHOT = snapshot.val()
+
+          console.log(TASKS, snapshot.val());
+          let COLUMNS = {
+            'to do': {
+              id: 'to do',
+              title: 'To Do',
+              name: 'to do',
+              taskIds: [],
+            },
+            'in progress': {
+              id: 'in progress',
+              title: 'In Progress',
+              name: 'in progress',
+              taskIds: [],
+            },
+            'completed': {
+              id: 'completed',
+              title: 'Completed',
+              name: 'completed',
+              taskIds: [],
+            }
+          }
+  
+          for (const columnId in SNAPSHOT) {
+            let CURRENT = SNAPSHOT[columnId]
+            console.log(CURRENT, columnId);
+            COLUMNS[columnId].taskIds = CURRENT
+          }
+
+          this.setState({tasks:TASKS, columns: COLUMNS})
+        }
+      })
+    })
+    
+  }
 
   onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -99,7 +172,7 @@ export default class TaskList extends Component {
                 (taskId) => this.state.tasks[taskId]
               );
 
-              return <Column key={column.id} column={column} tasks={tasks} />;
+              return <Column key={column.id} column={column} tasks={tasks} parentRefresh={this.fetchList} />;
             })}
           </DragDropContext>
         </div>
