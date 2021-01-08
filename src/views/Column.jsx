@@ -24,7 +24,6 @@ const List = styled.div`
     padding: 10px;
     flex-grow: 1;
     min-height: 100px;
-    border-radius: 0 0 0.5rem 0.5rem;
 `;
 const InputContainer = styled.div`
     display: flex;
@@ -102,8 +101,13 @@ export default class Column extends Component {
 
                 <InputContainer>
                     {/* <Label for={'task_' + this.props.column.name}>Create task</Label> */}
-                    <Input type='text' name={'task_' + this.props.column.name} id={'task_' + this.props.column.name} onChange={this.handleTaskChange} value={this.state.task} placeholder="Create task..." />
-                    <Button size="sm" color="info" onClick={this._addTask}>+</Button>
+                    <Input
+                        type='text' name={'task_' + this.props.column.name}
+                        id={'task_' + this.props.column.name}
+                        onChange={this.handleTaskChange} value={this.state.task} placeholder="Create task..."
+                        style={{borderRadius:'0 0 0 0.5rem', border:'none', borderTop:'1px solid lightgrey'}}
+                    />
+                    <Button size="sm" color="info" onClick={this._addTask} style={{borderRadius:'0 0 0.5rem 0'}}>+</Button>
                 </InputContainer>
             </Container>
         )

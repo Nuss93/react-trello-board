@@ -44,7 +44,7 @@ export default class TaskList extends Component {
         if(snapshot.exists()){
           let SNAPSHOT = snapshot.val()
 
-          console.log(TASKS, snapshot.val());
+          // console.log(TASKS, snapshot.val());
           let COLUMNS = {
             'to do': {
               id: 'to do',
@@ -68,7 +68,7 @@ export default class TaskList extends Component {
   
           for (const columnId in SNAPSHOT) {
             let CURRENT = SNAPSHOT[columnId]
-            console.log(CURRENT, columnId);
+            // console.log(CURRENT, columnId);
             COLUMNS[columnId].taskIds = CURRENT
           }
 
@@ -123,11 +123,15 @@ export default class TaskList extends Component {
         }
       };
 
-      this.setState(newState);
+      this.setState(newState, () => {
+        firebase.database().ref(`trello_list/${finish.name}`).set(newColumn.taskIds).then(() => {
+          this.fetchList()
+        })
+      });
       return;
     }
 
-    // PRETTY MUCH SIMILAR TO THE ABOVE FLOW, BUT NEED TO CONSIDER FROM DIFFERENT COLUMNS 9START AND FINISH ARRAYS ARE DIFFERENT
+    // PRETTY MUCH SIMILAR TO THE ABOVE FLOW, BUT NEED TO CONSIDER FROM DIFFERENT COLUMNS (START AND FINISH ARRAYS ARE DIFFERENT)
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {
@@ -151,13 +155,24 @@ export default class TaskList extends Component {
         [newFinish.id]: newFinish
       }
     };
-    this.setState(newState);
+
+    this.setState(newState, () => {
+      firebase.database().ref(`trello_cards/${draggableId}/status`).set(newFinish.name).then(() => {
+        firebase.database().ref(`trello_list`).update({
+          'to do' : newState.columns['to do'].taskIds,
+          'in progress' : newState.columns['in progress'].taskIds,
+          'completed' : newState.columns['completed'].taskIds
+        }).then(() => {
+          this.fetchList()
+        })
+      })
+    });
   };
 
   render() {
     return (
       <>
-        <h1 className="mb-0">Trello Board</h1>
+        <h1 className="mb-0" style={{margin: '15px 10px 20px'}}>React Beautiful DnD</h1>
         <div style={{ display: "flex" }}>
           <DragDropContext
             // 3 callbacks

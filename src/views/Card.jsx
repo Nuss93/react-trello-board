@@ -25,10 +25,12 @@ export default class Task extends Component {
                         ref={provided.innerRef}
                         style={{
                             background: snapshot.isDragging ? 'lightgreen' : 'white',
+                            transform: snapshot.isDragging ? 'rotate(50deg)' : 'none',
                             ...provided.draggableProps.style
                         }}
                     >
-                        {this.props.task.content}
+                        {this.props.task.content}<br/>
+                        <small>{this.props.task.id}</small>
                     </Container>
                 )}
             </Draggable>
