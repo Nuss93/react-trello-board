@@ -1,11 +1,11 @@
 var firebaseConfig = {
-    apiKey: "AIzaSyBLzX_uW4pQfSyV2jBNFohsg35PTXcPjTQ",
-    authDomain: "intern-playground.firebaseapp.com",
-    databaseURL: "https://intern-playground.firebaseio.com",
-    projectId: "intern-playground",
-    storageBucket: "intern-playground.appspot.com",
-    messagingSenderId: "567138678441",
-    appId: "1:567138678441:web:4f95294c579aed7d771bb8"
+    apiKey: "AIzaSyBMBbQdeoKMPnDPYkXiAQhOFksXs9YAfM8",
+    authDomain: "react-trello-dashboard-317ed.firebaseapp.com",
+    databaseURL: "https://react-trello-dashboard-317ed-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "react-trello-dashboard-317ed",
+    storageBucket: "react-trello-dashboard-317ed.appspot.com",
+    messagingSenderId: "652596879792",
+    appId: "1:652596879792:web:32efd50bf95052241ab675"
 };
 
 export { firebaseConfig }
