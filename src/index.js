@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import firebase from "firebase";
 
 import { firebaseConfig } from './config.js'
+import "./assets/css/index.scss";
 
 // console.log(firebaseConfig)
 firebase.initializeApp(firebaseConfig);

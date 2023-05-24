@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import logo from '../assets/image/logo.svg';
-import '../assets/css/App.css';
+// import '../assets/css/App.scss';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
