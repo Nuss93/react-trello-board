@@ -172,7 +172,6 @@ export default class TaskList extends Component {
   render() {
     return (
       <>
-        <h1 className="mb-0" style={{margin: '15px 10px 20px'}}>React Beautiful DnD</h1>
         <div style={{ display: "flex" }}>
           <DragDropContext
             // 3 callbacks
